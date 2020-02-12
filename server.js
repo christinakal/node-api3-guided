@@ -33,8 +33,8 @@ function logger(req, res, next) {
 }
 
 function gatekeeper(req, res, next){
-  if (req.headers.password !== "mellon"){
-      res.send("Wrong password!!!")
+  if (req.headers.password && req.headers.password.toLowerCase() !== "mellon"){
+      res.status(401).json({error: "Wrong password!!!"});
       res.end();
   } else {
     next();
